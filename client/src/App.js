@@ -29,7 +29,6 @@ function App() {
               throw new Error("failed to authenticate user");
             })
             
-            console.log("responseJson => ",responseJson);
             setIsLogin(responseJson.status);    
 
         }catch(error){
