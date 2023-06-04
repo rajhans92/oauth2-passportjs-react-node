@@ -1,15 +1,20 @@
 const router = require("express").Router();
 const passport = require("passport");
-const CLIENT_HOME_PAGE_URL = "http://localhost:3000";
+const CLIENT_HOME_PAGE_URL = "http://localhost:3000/";
 
 // when login is successful, retrieve user info
-router.get("/login/success", (req, res) => {
-  if (req.user) {
+router.post("/login/success", (req, res) => {
+  if (req.user && req.user.length > 0 ) {
     res.json({
-      success: true,
+      status: true,
       message: "user has successfully authenticated",
       user: req.user,
       cookies: req.cookies
+    });
+  }else{
+    res.json({
+      status: false,
+      message: "user has failed authenticated"
     });
   }
 });
@@ -35,8 +40,8 @@ router.get("/login", passport.authenticate("google", {scope: 'openid email profi
 router.get(
   "/login/redirect",
   passport.authenticate("google", {
-    successRedirect: "/auth/login/success",
-    failureRedirect: "/auth/login/failed"
+    successRedirect: "http://localhost:3000/",
+    failureRedirect: "http://localhost:3000/login"
   })
 );
 

@@ -5,7 +5,7 @@ function Logout(){
         console.log("Token before == ",localStorage.getItem("token"));
         localStorage.removeItem("token");
         console.log("Token after == ",localStorage.getItem("token"));
-        window.location.reload(); 
+        window.open("http://localhost:4000/auth/logout","_self"); 
     });
 
     return(

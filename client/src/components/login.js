@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ErrorDiv } from "./errorDiv";
-import {authentication} from "./api/auth";
+// import {authentication} from "./api/auth";
 
 function Login(){
 
@@ -11,27 +11,27 @@ function Login(){
     let [errorMessage,setErrorMessage] = useState('');
 
     let googleLogin = () =>{
-
+        window.open("http://localhost:4000/auth/login","_self")
     }
 
     
     let simpleLogin = (e) => {
         e.preventDefault();
+        
+        // if(!user.length || !password.length){
+        //     setErrorStatus(true);
+        //     setErrorMessage("Input Field should not blank!");
+        //     return false;            
+        // }
 
-        if(!user.length || !password.length){
-            setErrorStatus(true);
-            setErrorMessage("Input Field should not blank!");
-            return false;            
-        }
-
-        let userDetail = authentication({user,password});
-        if(userDetail.status){
-            localStorage.setItem('token', "tested string");
-            window.location.href = '/'    
-        }else{
-            setErrorStatus(userDetail.status);
-            setErrorMessage(userDetail.message);
-        }
+        // let userDetail = authentication({user,password});
+        // if(userDetail.status){
+        //     localStorage.setItem('token', "tested string");
+        //     window.location.href = '/'    
+        // }else{
+        //     setErrorStatus(userDetail.status);
+        //     setErrorMessage(userDetail.message);
+        // }
     }
 
     return(
