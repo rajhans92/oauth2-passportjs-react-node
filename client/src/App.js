@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector, useDispatch  } from "react-redux";
 import Layout from "./components/Layout";
 import Home from "./components/home";
 import Products from "./components/products";
@@ -8,36 +9,17 @@ import ProductDetails from "./components/productDetails";
 import Registration from "./components/registration";
 import ErrorPage from "./components/errorPage";
 import Logout from "./components/logout";
+import { authLoginAction } from "./slice/authSlice";
 
 function App() {
-  let [isLogin, setIsLogin] = useState(false);
+  // let [isLogin, setIsLogin] = useState(false);
 
+  let isLogin = useSelector((state) => state.auth.isLogin);
+  let dispatch = useDispatch();
+  
   useEffect(() => {
-    async function fetchData() {
-        try{
-
-            let responseJson = await fetch("http://localhost:4000/auth/login/success", {
-              method: "POST",
-              credentials: "include",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Credentials": true
-              }
-            }).then((response) => {
-              if (response.status === 200) return response.json();
-              throw new Error("failed to authenticate user");
-            })
-            
-            setIsLogin(responseJson.status);    
-
-        }catch(error){
-          console.log("error",error);
-          setIsLogin(false);
-        }
-      };
-      fetchData();
-  },[]);
+    dispatch(authLoginAction());
+  },[dispatch]);
 
   return (
     <Routes>
